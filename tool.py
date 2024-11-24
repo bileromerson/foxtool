@@ -4,15 +4,15 @@ import os
 import subprocess
 from time import sleep
 
-logo = """\033[33m
-                                ██▄              ▄██
-                                ████▄          ▄████
-                                ██████▄      ▄██████
-                               ▄████████████████████▄
-                             ▄████    ████████    ████▄
-                             ██████████████████████████
-                             ▀██████████    ██████████▀
-                               ▀████████████████████▀
+logo = """\033[38;5;214m
+                                 ██▄              ▄██
+                                 ████▄          ▄████
+                                 ██████▄      ▄██████
+                                ▄████████████████████▄
+                              ▄████    ████████    ████▄
+                              ██████████████████████████
+                              ▀██████████    ██████████▀
+                                ▀████████████████████▀
                                     
                      \033[34m[✔]       https://github.com/nome         [✔]
                      \033[34m[✔]            Version 1.0                [✔]
@@ -25,14 +25,14 @@ if __name__ == "__main__":
         try:
                 print("""
                       [@] set your option:
-                      [1] update
-                      [2] exit
+                      [1] SQL VULNERABILITY
+                      [2] EXIT
                 """)
 
                 choice = input("input =>>").strip()
 
                 if choice == "1":
-                         subprocess.run(["bash", "/foxtool/update.sh"])
+                        subprocess.run(["python", f"{os.getcwd()}/foxtool/tools/sql_code.py"])
 
 
                 else:
