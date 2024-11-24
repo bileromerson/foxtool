@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # Version 1.0
+import os
 import subprocess
 from time import sleep
-from platform import system
 
 logo = """\033[33m
                                 ██▄              ▄██
@@ -24,15 +24,16 @@ if __name__ == "__main__":
         print(logo)
         try:
                 print("""
-                      [@] set your attack option:
-                      [1] Manual
-                      [2] Default
+                      [@] set your option:
+                      [1] update
+                      [2] exit
                 """)
 
                 choice = input("input =>>").strip()
 
                 if choice == "1":
-                        subprocess.run(["python", "foxtool/tools/h.py"])
+                         subprocess.run(["bash", "/foxtool/update.sh"])
+
 
                 else:
                         print("try again...")
