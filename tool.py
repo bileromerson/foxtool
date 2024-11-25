@@ -25,8 +25,8 @@ if __name__ == "__main__":
         print(logo)
         try:
                 print("""
-                      [@] set your option:
-                      [1] SQL VULNERABILITY
+                      [@] set your vulnerability test option:
+                      [1] Payload Test
                       [2] EXIT
                 """)
 
