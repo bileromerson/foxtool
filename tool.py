@@ -17,7 +17,7 @@ logo = """\033[38;5;214m
                                     
                      \033[34m[✔]       https://github.com/nome         [✔]
                      \033[34m[✔]            Version 1.0                [✔]
-                     \033[30m[-]       inspired by: hackingtool        [-]
+                     \033[30m[-]       inspired by: setoolkit        [-]
                      \033[91m[X] Please Don't Use For illegal Activity [X]
 \033[97m"""
 
