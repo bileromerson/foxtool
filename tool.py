@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.13
 # Version 1.0
+
 import os
 import subprocess
 from time import sleep
@@ -29,10 +30,14 @@ if __name__ == "__main__":
                       [2] EXIT
                 """)
 
-                choice = input("input =>>").strip()
+                choice = input("input =>>  ").strip()
 
-                if choice == "1":
+                if choice == '1':
                         subprocess.run(["python", f"{os.getcwd()}/foxtool/tools/sql_code.py"])
+                
+                elif choice =='2': # EXIT
+                        print("\nExiting ..!!!")
+                        sleep(2)
 
 
                 else:

