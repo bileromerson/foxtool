@@ -19,7 +19,7 @@ logo = """\033[38;5;214m
                      \033[34m[✔]            Version 1.0                [✔]
                      \033[30m[-]       inspired by: hackingtool        [-]
                      \033[91m[X] Please Don't Use For illegal Activity [X]
-\033[97m """
+\033[97m"""
 
 if __name__ == "__main__":
         print(logo)
