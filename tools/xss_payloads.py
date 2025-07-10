@@ -1,25 +1,22 @@
 # XSS Payload Test Tool
 # Version 1.2
 import os
+import sys
 import requests
 import platform
+import requests
 from time import sleep
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from assets.logo import logo    
 
+caminho_driver = './chromedriver'
 
 if platform.system() == "Windows":
     os.system("cls")
 else:
     os.system("clear")
 
-print("""\033[38;5;214m
-                                 ██▄              ▄██   
-                                 ████▄          ▄████   
-                                 ██████▄      ▄██████   
-                                ▄████████████████████▄  
-                              ▄████    ████████    ████▄
-                              ██████████████████████████
-                              ▀██████████    ██████████▀
-                                ▀████████████████████▀  
+print(logo, """\033[38;5;214m
                       [@] choose your payload vulnerability test:
                       \033[34m[1] payload test simple
                       \033[91m[2] payload test advanced
@@ -27,6 +24,7 @@ print("""\033[38;5;214m
 \033[97m""")
 def payload_test(url, file):
     print(f"\n\033[38;5;214m[INFO] testing the {url}:\033[97m\n")
+    print(f"\033[38;5;214m[INFO] using payloads from: {file}\033[97m\n")
 
     # load payloads
     with open(file, 'r') as loadPayloads: # open payloads folder
@@ -37,23 +35,22 @@ def payload_test(url, file):
         line = []
         for payload in payloads:
             response = requests.get(url, params={'search': payload})
-            payload = payload.strip() # clean the payload
-            start = payload.find("<script>") # find the start of the script tag
-            end = payload.find("</script>") # find the end of the script tag
-            if start != -1 and end != -1:
-                script_part = payload[start:end + len("</script>")] # extract the script part from the payload to check if has vulnerability
-            
-            print(response.url)
-            print(f"\033[34m[INFO] Testing payload: {payload}\033[97m")
-            print(f"Request status: {response.status_code}")
+            startScript = payload.find("<script>") # example payload
+            endScript = payload.find("</script>")
+            anotherForms = "javascript:alert('XSS')" # another example payload ATENTION: the payload neads to alert('XSS')
+            script = payload[startScript:endScript + len('</script>')] # extract the script part from the payload
 
-            if script_part.lower() or 'javascript:alert(\'XSS\')' in response.text.lower(): # check if the payload is in the response text (I need to repair the javascript:alert part for acept all payloads)
+            print(f"\033[34m[INFO] Testing payload: {payload}\033[97m")
+            print(response.url)
+            print(f"Request status: {response.status_code}")
+            print(f"Response length: {len(response.text)} characters\n")
+            if script.lower() in response.text.lower(): # check if the payload is in the response text (I need to repair the javascript:alert part for acept all payloads)
+                print(script)
                 print("\033[91m[INFO] Possible vulnerability detected. \033[97m\n")
                 line.append(f"\033[91m{payload}\033[97m")
-                print(script_part)
             else:
-                print("\033[32m[INFO] Unexpected response received. \033[91m\n")
-                print(script_part)
+                print("\033[32m[INFO] nothing here... \033[91m")
+                print(f"\033[38;5;214m[INFO] Payload {payload} not found in response.\033[97m\n")
         else: # when the process is over
             print("\n\033[32m<<--------------------------------------->>\033[97m\n")
 
@@ -74,7 +71,7 @@ try:
 
     if choice =='1':
         url = input("Input URL: ").strip() # Target URL
-        file = "foxtool/tools/txts/xss_payloads.txt" # file path
+        file = "foxtool/txts/xss_payloads.txt" # file path
 
         if "http://" not in url and "https://" not in url: # complete url
             url = "http://"+url # new url value
