@@ -1,9 +1,8 @@
 import random as range
-RESET = "\033[0m"
-ORANGE = "\033[38;5;208m"
-GRAY = "\033[38;5;240m"
-PADRAO = "\033[37m"
-BACKGROUND = "\033[48;5;232m"
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from core.color import reset, reset, orange, gray
 
 logo1 = """
                                  ██▄              ▄██   
@@ -25,23 +24,24 @@ logo2 = """
             ╚═╝      ╚═════╝ ╚═╝  ╚═╝    ╚═╝    ╚═════╝   ╚════╝  ╚══════╝
 """
 
-num = range.randint(1, 2)  # Randomly choose between 1 and 2
+num = range.randint(1, 2)
 def choice_logo(num):
     logo_str = 'logo' + str(num)
-    logo = globals()[logo_str]
-    return logo
+    logo_str = globals()[logo_str]
+    return logo_str
 
-def logo_paint(text, num):
+logo_str = choice_logo(num)
+
+def paint_logo(logo_str,num):
     logo = ''
-    if num == 1 or num == 2:
-      for char in text:
-        if char in '█▄▀':
-            logo += f"{ORANGE}{char}{RESET}"
-        elif char in '╝╚║═╗╔':
-            logo += f"{GRAY}{char}{RESET}"
-        else:
-            logo += f"{PADRAO}{char}{RESET}"
+    if num ==1:
+        logo = f'''{orange}{logo_str}{reset}'''
+    elif num ==2:
+        for char in logo_str:
+            if char in '╚╝║╔═╗':
+                logo += f'{gray}{char}'
+            else:
+                logo += f'{orange}{char}'
+
     return logo
-
-logo = logo_paint(choice_logo(num), num) + "\033[97m"
-
+logo = paint_logo(logo_str,num)
